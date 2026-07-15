@@ -1,4 +1,5 @@
 import { Hono } from "hono";
+import { logger } from "hono/logger";
 import nodemailer from "nodemailer";
 import { render } from "@react-email/render";
 import LeadNotification, { type Lead } from "./emails/lead-notification";
@@ -15,6 +16,8 @@ const transporter = nodemailer.createTransport({
 });
 
 const app = new Hono();
+
+app.use(logger());
 
 app.get("/", (c) => c.json({ health: "ok" }));
 
