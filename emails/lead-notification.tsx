@@ -17,20 +17,24 @@ export interface Lead {
   message: string;
 }
 
-const red = "#D62F2F";
-
 const label: React.CSSProperties = {
   margin: "0",
   fontSize: "11px",
   textTransform: "uppercase",
-  letterSpacing: "1px",
-  color: "#7A7A7A",
+  letterSpacing: "1.5px",
+  color: "#8a8a8a",
 };
 
 const value: React.CSSProperties = {
-  margin: "2px 0 16px",
+  margin: "4px 0 24px",
   fontSize: "16px",
-  color: "#000000",
+  lineHeight: "24px",
+  color: "#ffffff",
+};
+
+const link: React.CSSProperties = {
+  color: "#ffffff",
+  textDecoration: "underline",
 };
 
 export default function LeadNotification({ name, email, phone, message }: Lead) {
@@ -42,41 +46,50 @@ export default function LeadNotification({ name, email, phone, message }: Lead) 
           backgroundColor: "#f2f2f2",
           fontFamily: "Helvetica, Arial, sans-serif",
           margin: "0",
-          padding: "24px 0",
+          padding: "32px 0",
         }}
       >
         <Container
           style={{
-            maxWidth: "560px",
-            backgroundColor: "#ffffff",
-            borderRadius: "8px",
+            maxWidth: "600px",
+            backgroundColor: "#000000",
             overflow: "hidden",
           }}
         >
-          <Section style={{ backgroundColor: "#000000", padding: "24px 32px" }}>
-            <Text
-              style={{
-                margin: "0",
-                fontSize: "28px",
-                fontWeight: "bold",
-                color: "#ffffff",
-                letterSpacing: "-0.5px",
-              }}
-            >
-              dot<span style={{ color: red }}>.</span>
+          <Section
+            style={{
+              padding: "40px 32px",
+              textAlign: "center",
+              borderBottom: "1px solid #1e1e1e",
+            }}
+          >
+            <Text style={{ margin: "0", fontSize: "24px", color: "#ffffff" }}>
+              <span style={{ fontWeight: "bold" }}>dot.</span> design e comunicação
             </Text>
           </Section>
 
-          <Section style={{ padding: "32px" }}>
+          <Section style={{ padding: "48px 40px 40px" }}>
             <Heading
-              as="h2"
-              style={{ margin: "0 0 4px", fontSize: "20px", color: "#000000" }}
+              as="h1"
+              style={{
+                margin: "0 0 8px",
+                fontSize: "28px",
+                fontWeight: "bold",
+                color: "#ffffff",
+              }}
             >
               Novo pedido de contacto
             </Heading>
-            <Text style={{ margin: "0 0 24px", fontSize: "14px", color: "#7A7A7A" }}>
+            <Text
+              style={{
+                margin: "0 0 32px",
+                fontSize: "15px",
+                lineHeight: "24px",
+                color: "#8a8a8a",
+              }}
+            >
               Recebeu uma nova mensagem através do formulário do site{" "}
-              <Link href="https://dotdesign.pt" style={{ color: red }}>
+              <Link href="https://dotdesign.pt" style={link}>
                 dotdesign.pt
               </Link>
               .
@@ -87,33 +100,29 @@ export default function LeadNotification({ name, email, phone, message }: Lead) 
 
             <Text style={label}>Email</Text>
             <Text style={value}>
-              <Link href={`mailto:${email}`} style={{ color: red }}>
+              <Link href={`mailto:${email}`} style={link}>
                 {email}
               </Link>
             </Text>
 
             <Text style={label}>Telefone</Text>
             <Text style={value}>
-              <Link href={`tel:${phone}`} style={{ color: red }}>
+              <Link href={`tel:${phone}`} style={link}>
                 {phone}
               </Link>
             </Text>
 
-            <Hr style={{ borderColor: "#f2f2f2", margin: "8px 0 16px" }} />
+            <Hr style={{ borderColor: "#2a2a2a", margin: "8px 0 24px" }} />
 
             <Text style={label}>Mensagem</Text>
-            <Text style={{ ...value, whiteSpace: "pre-wrap" }}>{message}</Text>
-          </Section>
+            <Text style={{ ...value, whiteSpace: "pre-wrap", margin: "4px 0 0" }}>
+              {message}
+            </Text>
 
-          <Section
-            style={{
-              backgroundColor: "#000000",
-              padding: "16px 32px",
-            }}
-          >
-            <Text style={{ margin: "0", fontSize: "12px", color: "#7A7A7A" }}>
-              Dot. — Agência de Comunicação · Pode responder diretamente a este
-              email para contactar o cliente.
+            <Hr style={{ borderColor: "#2a2a2a", margin: "40px 0 24px" }} />
+
+            <Text style={{ margin: "0", fontSize: "13px", color: "#8a8a8a" }}>
+              Pode responder diretamente a este email para contactar o cliente.
             </Text>
           </Section>
         </Container>

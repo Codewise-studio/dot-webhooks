@@ -2,6 +2,7 @@ import { Hono } from "hono";
 import nodemailer from "nodemailer";
 import { render } from "@react-email/render";
 import LeadNotification, { type Lead } from "./emails/lead-notification";
+import ClientConfirmation from "./emails/client-confirmation";
 
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST ?? "mail.dotcomunicacao.pt",
@@ -44,12 +45,27 @@ app.post("/api/leads/site", async (c) => {
 
   try {
     const info = await transporter.sendMail({
-      from: process.env.LEADS_FROM ?? '"Leads" <leads@dotcomunicacao.pt>',
+      from: process.env.LEADS_FROM ?? '"Leads" <info@dotdesign.pt>',
       to: process.env.LEADS_TO ?? "info@dotdesign.pt",
       replyTo: lead.email,
       subject: `Novo lead: ${lead.name}`,
       html: await render(LeadNotification(lead)),
     });
+    // confirmation to the client — best-effort, lead already delivered
+    transporter
+      .sendMail({
+        from: process.env.LEADS_FROM ?? '"dot. design e comunicação" <info@dotdesign.pt>',
+        to: lead.email,
+        subject: "Obrigado pelo seu contacto — dot.",
+        html: await render(
+          ClientConfirmation({
+            name: lead.name,
+            meetingUrl: process.env.MEETING_URL ?? "https://calendar.app.google/hiqXxPRF9Jgg4Ndt5",
+          })
+        ),
+      })
+      .catch((err) => console.error("client confirmation error:", err));
+
     return c.json({ ok: true, id: info.messageId });
   } catch (err) {
     console.error("smtp error:", err);
