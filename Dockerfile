@@ -1,4 +1,5 @@
-FROM oven/bun:1-slim
+# canary: local bun 1.4 writes lockfile v2, unsupported by bun 1.3 images
+FROM oven/bun:canary-slim
 
 WORKDIR /app
 
