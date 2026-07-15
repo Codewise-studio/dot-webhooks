@@ -1,0 +1,25 @@
+{
+  "name": "dot-webhooks",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "email": "bunx react-email dev"
+  },
+  "devDependencies": {
+    "@react-email/ui": "6.8.1",
+    "@types/bun": "latest",
+    "@types/nodemailer": "^8.0.1"
+  },
+  "peerDependencies": {
+    "typescript": "^6"
+  },
+  "dependencies": {
+    "@react-email/components": "^1.0.12",
+    "@react-email/render": "^2.1.0",
+    "@types/react": "^19.2.17",
+    "hono": "^4.12.30",
+    "nodemailer": "^9.0.3",
+    "react": "^19.2.7"
+  }
+}
