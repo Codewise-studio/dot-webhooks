@@ -12,10 +12,6 @@ const transporter = nodemailer.createTransport({
     user: process.env.SMTP_USER ?? "info@dotdesign.pt",
     pass: process.env.SMTP_PASS,
   },
-  tls: {
-    // ISRG Root YR (cross-signed by X1) — not yet in Node/Bun CA bundle
-    ca: [await Bun.file(new URL("./certs/isrg-root-yr.pem", import.meta.url)).text()],
-  },
 });
 
 const app = new Hono();
