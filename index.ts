@@ -5,11 +5,11 @@ import LeadNotification, { type Lead } from "./emails/lead-notification";
 import ClientConfirmation from "./emails/client-confirmation";
 
 const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST ?? "mail.dotcomunicacao.pt",
+  host: process.env.SMTP_HOST ?? "mail.dotdesign.pt",
   port: Number(process.env.SMTP_PORT ?? 465),
   secure: (process.env.SMTP_PORT ?? "465") === "465",
   auth: {
-    user: process.env.SMTP_USER ?? "leads@dotcomunicacao.pt",
+    user: process.env.SMTP_USER ?? "info@dotdesign.pt",
     pass: process.env.SMTP_PASS,
   },
   tls: {
@@ -61,7 +61,7 @@ app.post("/api/leads/site", async (c) => {
           ClientConfirmation({
             name: lead.name,
             meetingUrl: process.env.MEETING_URL ?? "https://calendar.app.google/hiqXxPRF9Jgg4Ndt5",
-          })
+          }),
         ),
       })
       .catch((err) => console.error("client confirmation error:", err));
