@@ -44,8 +44,8 @@ app.post("/api/leads/site", async (c) => {
 
   try {
     const info = await transporter.sendMail({
-      from: process.env.LEADS_FROM ?? '"Leads" <info@dotdesign.pt>',
-      to: process.env.LEADS_TO ?? "info@dotdesign.pt",
+      from: '"Leads" <info@dotdesign.pt>',
+      to: "geral@dotdesign.pt",
       replyTo: lead.email,
       subject: `Novo lead: ${lead.name}`,
       html: await render(LeadNotification(lead)),
