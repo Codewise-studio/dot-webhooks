@@ -9,7 +9,7 @@ const transporter = nodemailer.createTransport({
   secure: (process.env.SMTP_PORT ?? "465") === "465",
   auth: {
     user: process.env.SMTP_USER ?? "leads@dotcomunicacao.pt",
-    pass: process.env.SMTP_PASS ?? "cSVb3nGsiU",
+    pass: process.env.SMTP_PASS,
   },
   tls: {
     // ISRG Root YR (cross-signed by X1) — not yet in Node/Bun CA bundle
