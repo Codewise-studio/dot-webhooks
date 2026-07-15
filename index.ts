@@ -5,25 +5,14 @@ import { render } from "@react-email/render";
 import LeadNotification, { type Lead } from "./emails/lead-notification";
 import ClientConfirmation from "./emails/client-confirmation";
 
-// client-facing emails — info@dotdesign.pt
+// all sending — Google SMTP, auth as geral@, From: alias info@
 const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST ?? "mail.dotdesign.pt",
+  host: process.env.SMTP_HOST ?? "smtp.gmail.com",
   port: Number(process.env.SMTP_PORT ?? 465),
   secure: (process.env.SMTP_PORT ?? "465") === "465",
   auth: {
-    user: process.env.SMTP_USER ?? "info@dotdesign.pt",
+    user: process.env.SMTP_USER ?? "geral@dotdesign.pt",
     pass: process.env.SMTP_PASS,
-  },
-});
-
-// internal lead notifications — leads@dotcomunicacao.pt
-const leadsTransporter = nodemailer.createTransport({
-  host: process.env.LEADS_SMTP_HOST ?? "mail.dotcomunicacao.pt",
-  port: Number(process.env.LEADS_SMTP_PORT ?? 465),
-  secure: (process.env.LEADS_SMTP_PORT ?? "465") === "465",
-  auth: {
-    user: "leads@dotcomunicacao.pt",
-    pass: process.env.LEADS_SMTP_PASS,
   },
 });
 
@@ -55,8 +44,8 @@ app.post("/api/leads/site", async (c) => {
   }
 
   try {
-    const info = await leadsTransporter.sendMail({
-      from: '"Leads" <leads@dotcomunicacao.pt>',
+    const info = await transporter.sendMail({
+      from: '"Leads" <info@dotdesign.pt>',
       to: "geral@dotdesign.pt",
       replyTo: lead.email,
       subject: `Novo lead: ${lead.name}`,
