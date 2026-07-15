@@ -19,6 +19,8 @@ const transporter = nodemailer.createTransport({
 
 const app = new Hono();
 
+app.get("/", (c) => c.json({ health: "ok" }));
+
 app.post("/api/leads/site", async (c) => {
   let body: Record<string, string>;
   const type = c.req.header("content-type") ?? "";
